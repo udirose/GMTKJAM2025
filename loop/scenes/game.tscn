@@ -1,11 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://dumn7vwab1sxu"]
+[gd_scene load_steps=4 format=3 uid="uid://dumn7vwab1sxu"]
 
+[ext_resource type="Script" uid="uid://du7xbbmt3sk8a" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b178e424jw7tx" path="res://scenes/ship.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://b7cabhpy217nu" path="res://scenes/planet1.tscn" id="2_yqjtg"]
 
 [node name="game" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_lnu2h")
 
 [node name="ship" parent="." instance=ExtResource("1_uwrxv")]
+process_mode = 1
 scale = Vector2(2, 2)
 
 [node name="Camera2D" type="Camera2D" parent="ship"]

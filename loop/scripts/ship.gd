@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var orbit_speed := 2.0 # radians per second
+@onready var ship_sprite = $Sprite2D
 
 var is_orbiting := false
 var orbit_center := Vector2.ZERO
