@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dspqbdhh55mex"
+path="res://.godot/imported/wrong.ogg-31ce52b8b6337f7172fc57085997acf0.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Synth Voice 1/Audio/wrong.ogg"
+dest_files=["res://.godot/imported/wrong.ogg-31ce52b8b6337f7172fc57085997acf0.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

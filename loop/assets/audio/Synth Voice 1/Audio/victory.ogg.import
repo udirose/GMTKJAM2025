@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ds47o0uei3o4d"
+path="res://.godot/imported/victory.ogg-cf0a5a5a693c258b866958dc193057af.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Synth Voice 1/Audio/victory.ogg"
+dest_files=["res://.godot/imported/victory.ogg-cf0a5a5a693c258b866958dc193057af.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

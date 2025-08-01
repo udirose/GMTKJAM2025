@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://p84fge40f5kf"
+path="res://.godot/imported/prepare_yourself.ogg-cdf6d33e5f5112ae9ff93d3dd4b5d144.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Synth Voice 1/Audio/prepare_yourself.ogg"
+dest_files=["res://.godot/imported/prepare_yourself.ogg-cdf6d33e5f5112ae9ff93d3dd4b5d144.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://clrpb0wwydgeo"
+path="res://.godot/imported/fight.ogg-4f0c285d5bbcd71a910bea53b526852e.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Synth Voice 1/Audio/fight.ogg"
+dest_files=["res://.godot/imported/fight.ogg-4f0c285d5bbcd71a910bea53b526852e.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
