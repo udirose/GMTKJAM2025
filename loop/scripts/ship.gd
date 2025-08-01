@@ -34,7 +34,11 @@ func _process(delta):
 	# Movement update
 	if is_orbiting:
 		update_orbit(delta)
-		rotation = - orbit_angle
+		if orbit_direction > 0:
+			rotation = orbit_angle - PI
+		else:
+			rotation = orbit_angle
+		rotation = wrapf(rotation, -PI, PI) # Ensure rotation is within -PI to PI range
 	else:
 		# Always move up (negative Y in Godot by default)
 		position.y -= forward_speed * delta
