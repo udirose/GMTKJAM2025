@@ -33,7 +33,7 @@ func _process(delta):
 	# Movement update
 	if is_orbiting:
 		update_orbit(delta)
-		rotation = -orbit_angle
+		rotation = - orbit_angle
 	else:
 		# Always move up (negative Y in Godot by default)
 		position.y -= forward_speed * delta
@@ -47,7 +47,6 @@ func _process(delta):
 	# Restart scene
 	if Input.is_action_just_pressed("restart"):
 		get_tree().reload_current_scene()
-
 
 
 func get_closest_planet() -> Node2D:
@@ -64,6 +63,7 @@ func start_orbit(planet: Node2D):
 	is_orbiting = true
 	orbit_center = planet.global_position
 	orbit_radius = position.distance_to(orbit_center)
+	orbit_speed = max(1.5, -0.03 * orbit_radius + 12.0)
 	orbit_angle = (position - orbit_center).angle()
 	# Dynamic orbit direction: if player is to the right of planet, clockwise; else, counterclockwise
 	if position.x > orbit_center.x:
@@ -76,7 +76,7 @@ func update_orbit(delta):
 	position = orbit_center + Vector2.RIGHT.rotated(orbit_angle) * orbit_radius
 
 	# Calculate tangent velocity for slingshot direction
-	var tangent := Vector2.RIGHT.rotated(orbit_angle + orbit_direction * PI/2)
+	var tangent := Vector2.RIGHT.rotated(orbit_angle + orbit_direction * PI / 2)
 	orbit_velocity = tangent * orbit_speed * orbit_radius
 
 func stop_orbit():
