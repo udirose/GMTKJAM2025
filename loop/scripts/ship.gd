@@ -9,9 +9,16 @@ var orbit_angle := 0.0
 var orbit_velocity := Vector2.ZERO
 var orbit_direction := 1 # 1 for clockwise, -1 for counterclockwise
 
+# Player always moves up at this speed
+@export var forward_speed := 200.0
+# Store the camera's fixed X position
+var camera_fixed_x := 0.0
+
 @onready var camera = $Camera2D
-var normal_zoom = Vector2(1, 1)
-var zoomed_out = Vector2(1.5, 1.5)  # adjust zoom level here
+
+
+func _ready():
+	camera_fixed_x = camera.global_position.x
 
 func _process(delta):
 	# Orbit input handling
@@ -26,18 +33,21 @@ func _process(delta):
 	# Movement update
 	if is_orbiting:
 		update_orbit(delta)
+		rotation = -orbit_angle
 	else:
+		# Always move up (negative Y in Godot by default)
+		position.y -= forward_speed * delta
 		position += orbit_velocity * delta
+		rotation = 0.0
+
+	# Camera only follows player's Y, X is fixed
+	camera.global_position.x = camera_fixed_x
+	camera.global_position.y = global_position.y
 
 	# Restart scene
 	if Input.is_action_just_pressed("restart"):
 		get_tree().reload_current_scene()
 
-	# Camera zoom smoothing
-	if is_orbiting:
-		camera.zoom = camera.zoom.lerp(zoomed_out, 5 * delta)
-	else:
-		camera.zoom = camera.zoom.lerp(normal_zoom, 5 * delta)
 
 
 func get_closest_planet() -> Node2D:
@@ -55,14 +65,18 @@ func start_orbit(planet: Node2D):
 	orbit_center = planet.global_position
 	orbit_radius = position.distance_to(orbit_center)
 	orbit_angle = (position - orbit_center).angle()
-	orbit_direction = 1 # Optional: can be dynamic
+	# Dynamic orbit direction: if player is to the right of planet, clockwise; else, counterclockwise
+	if position.x > orbit_center.x:
+		orbit_direction = -1
+	else:
+		orbit_direction = 1
 
 func update_orbit(delta):
 	orbit_angle += orbit_speed * delta * orbit_direction
 	position = orbit_center + Vector2.RIGHT.rotated(orbit_angle) * orbit_radius
 
 	# Calculate tangent velocity for slingshot direction
-	var tangent := Vector2.UP.rotated(orbit_angle) * orbit_direction
+	var tangent := Vector2.RIGHT.rotated(orbit_angle + orbit_direction * PI/2)
 	orbit_velocity = tangent * orbit_speed * orbit_radius
 
 func stop_orbit():
