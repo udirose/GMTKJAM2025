@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dumn7vwab1sxu"]
+
+[ext_resource type="PackedScene" uid="uid://b178e424jw7tx" path="res://scenes/ship.tscn" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://b7cabhpy217nu" path="res://scenes/planet1.tscn" id="2_yqjtg"]
+
+[node name="game" type="Node2D"]
+
+[node name="ship" parent="." instance=ExtResource("1_uwrxv")]
+position = Vector2(560, 549)
+
+[node name="Camera2D" type="Camera2D" parent="ship"]
+position = Vector2(12, 7)
+zoom = Vector2(0.5, 0.5)
+
+[node name="planet1" parent="." instance=ExtResource("2_yqjtg")]
+position = Vector2(550, 245)
