@@ -1,0 +1,94 @@
+[gd_scene load_steps=6 format=3 uid="uid://dg1m34b4ag32w"]
+
+[ext_resource type="Script" uid="uid://de5j5vob7wmwb" path="res://scripts/mainmenu.gd" id="1_8ln24"]
+[ext_resource type="Texture2D" uid="uid://dnqqj1bl5ijwl" path="res://assets/Space Background.png" id="1_l6cm7"]
+[ext_resource type="Theme" uid="uid://ddnandfipglca" path="res://themes/ui.tres" id="2_ekxnf"]
+[ext_resource type="Theme" uid="uid://dnwwkp2jqt4jh" path="res://themes/buttons.tres" id="3_bqqt6"]
+[ext_resource type="FontFile" uid="uid://dxhn3787x12g3" path="res://assets/Bonus/kenvector_future_thin.ttf" id="4_wu84c"]
+
+[node name="MainMenu" type="CanvasLayer"]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8ln24")
+
+[node name="background" type="TextureRect" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_l6cm7")
+
+[node name="title" type="RichTextLabel" parent="UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -575.0
+offset_top = 102.0
+offset_right = 575.0
+offset_bottom = 303.0
+grow_horizontal = 2
+theme = ExtResource("2_ekxnf")
+theme_override_font_sizes/normal_font_size = 128
+bbcode_enabled = true
+text = "[center][wave][rainbow freq=.5]LOOPER"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/title"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -296.0
+offset_top = 144.0
+offset_right = 282.0
+offset_bottom = 219.0
+grow_horizontal = 2
+bbcode_enabled = true
+text = "[center]a game by udr and ek"
+fit_content = true
+
+[node name="play" type="Button" parent="UI"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -305.0
+offset_top = 100.0
+offset_right = 305.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_bqqt6")
+theme_override_fonts/font = ExtResource("4_wu84c")
+text = "LAUNCH"
+
+[node name="highscore" type="RichTextLabel" parent="UI"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -214.5
+offset_top = -28.0
+offset_right = 214.5
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_ekxnf")
+bbcode_enabled = true
+text = "highscore"
+
+[connection signal="pressed" from="UI/play" to="UI" method="_on_play_pressed"]

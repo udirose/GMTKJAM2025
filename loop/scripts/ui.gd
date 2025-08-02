@@ -70,6 +70,10 @@ func update_health_display():
 			health_bar.modulate = Color.GREEN
 
 func show_game_over():
+	# Update global highscore when game ends
+	if has_node("/root/Global"):
+		Global.update_highscore(current_score)
+	
 	if game_over_screen:
 		game_over_screen.visible = true
 
@@ -82,7 +86,6 @@ func _on_loop_button_pressed():
 func _on_quit_button_pressed():
 	# Unpause before quitting (just in case)
 	get_tree().paused = false
-	# Quit the game
-	get_tree().quit()
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
 
