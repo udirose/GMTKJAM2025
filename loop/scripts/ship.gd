@@ -3,6 +3,13 @@ extends Node2D
 @export var orbit_speed := 2.0 # radians per second
 @onready var ship_sprite = $Sprite2D
 
+# Fuel system
+signal fuel_changed(new_fuel_amount)
+@export var max_fuel := 100.0
+@export var fuel_consumption_rate := 10.0  # fuel per second when moving
+@export var orbit_fuel_consumption := 5.0  # fuel per second when orbiting
+var current_fuel := 100.0
+
 var is_orbiting := false
 var orbit_center := Vector2.ZERO
 var orbit_radius := 0.0
@@ -31,6 +38,13 @@ func _process(delta):
 	elif Input.is_action_just_released("orbit") and is_orbiting:
 		stop_orbit()
 
+	# TODO: Fuel consumption
+	if current_fuel > 0:
+		if is_orbiting:
+			pass
+		else:
+			consume_fuel(fuel_consumption_rate * delta)
+
 	# Movement update
 	if is_orbiting:
 		update_orbit(delta)
@@ -48,10 +62,6 @@ func _process(delta):
 	# Camera only follows player's Y, X is fixed
 	camera.global_position.x = camera_fixed_x
 	camera.global_position.y = global_position.y
-
-	# Restart scene
-	if Input.is_action_just_pressed("restart"):
-		get_tree().reload_current_scene()
 
 
 func get_closest_planet() -> Node2D:
@@ -86,3 +96,11 @@ func update_orbit(delta):
 
 func stop_orbit():
 	is_orbiting = false
+
+func consume_fuel(amount: float):
+	current_fuel = max(0.0, current_fuel - amount)
+	fuel_changed.emit(current_fuel)
+
+func add_fuel(amount: float):
+	current_fuel = min(max_fuel, current_fuel + amount)
+	fuel_changed.emit(current_fuel)

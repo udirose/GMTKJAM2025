@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dumn7vwab1sxu"]
+[gd_scene load_steps=12 format=3 uid="uid://dumn7vwab1sxu"]
 
 [ext_resource type="Script" uid="uid://du7xbbmt3sk8a" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b178e424jw7tx" path="res://scenes/ship.tscn" id="1_uwrxv"]
@@ -11,6 +11,15 @@
 [sub_resource type="Theme" id="Theme_iywne"]
 RichTextLabel/font_sizes/normal_font_size = 32
 RichTextLabel/fonts/normal_font = ExtResource("2_lbhrr")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u5sy4"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gee14"]
+
+[sub_resource type="Theme" id="Theme_0tnpc"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_u5sy4")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_gee14")
 
 [node name="game" type="Node2D"]
 process_mode = 3
@@ -45,7 +54,7 @@ bbcode_enabled = true
 text = "est dist:"
 fit_content = true
 
-[node name="ProgressBar" type="ProgressBar" parent="UI/UI"]
+[node name="fuel_bar" type="ProgressBar" parent="UI/UI"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -59,14 +68,17 @@ offset_bottom = 27.0
 grow_horizontal = 0
 grow_vertical = 0
 rotation = 4.71239
+theme = SubResource("Theme_0tnpc")
 value = 20.0
+show_percentage = false
 
-[node name="RichTextLabel" type="RichTextLabel" parent="UI/UI"]
+[node name="fuel_label" type="RichTextLabel" parent="UI/UI/fuel_bar"]
 layout_mode = 0
-offset_left = 1011.0
-offset_top = 611.0
-offset_right = 1153.0
-offset_bottom = 651.0
+offset_left = 36.0
+offset_top = -111.0
+offset_right = 178.0
+offset_bottom = -71.0
+rotation = 1.5708
 bbcode_enabled = true
 text = "Fuel"
 
