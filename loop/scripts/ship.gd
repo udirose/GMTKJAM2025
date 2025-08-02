@@ -6,8 +6,8 @@ extends Node2D
 # Fuel system
 signal fuel_changed(new_fuel_amount)
 @export var max_fuel := 100.0
-@export var fuel_consumption_rate := 10.0  # fuel per second when moving
-@export var orbit_fuel_consumption := 5.0  # fuel per second when orbiting
+@export var fuel_consumption_rate := 10.0 # fuel per second when moving
+@export var orbit_fuel_consumption := 5.0 # fuel per second when orbiting
 var current_fuel := 100.0
 
 var is_orbiting := false
@@ -53,11 +53,11 @@ func _process(delta):
 		else:
 			rotation = orbit_angle
 		rotation = wrapf(rotation, -PI, PI) # Ensure rotation is within -PI to PI range
+		print(rotation)
 	else:
 		# Always move up (negative Y in Godot by default)
 		position.y -= forward_speed * delta
 		position += orbit_velocity * delta
-		rotation = 0.0
 
 	# Camera only follows player's Y, X is fixed
 	camera.global_position.x = camera_fixed_x
@@ -80,11 +80,13 @@ func start_orbit(planet: Node2D):
 	orbit_radius = position.distance_to(orbit_center)
 	orbit_speed = max(1.5, -0.03 * orbit_radius + 12.0)
 	orbit_angle = (position - orbit_center).angle()
-	# Dynamic orbit direction: if player is to the right of planet, clockwise; else, counterclockwise
-	if position.x > orbit_center.x:
-		orbit_direction = -1
+	var to_center = orbit_center - position
+	var tangential_direction = orbit_velocity.cross(to_center)
+
+	if tangential_direction > 0:
+		orbit_direction = 1 # Counterclockwise
 	else:
-		orbit_direction = 1
+		orbit_direction = -1 # Clockwise
 
 func update_orbit(delta):
 	orbit_angle += orbit_speed * delta * orbit_direction
