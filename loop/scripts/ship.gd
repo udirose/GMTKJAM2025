@@ -17,6 +17,11 @@ var orbit_angle := 0.0
 var orbit_velocity := Vector2.ZERO
 var orbit_direction := 1 # 1 for clockwise, -1 for counterclockwise
 
+var dash_vector: Vector2 = Vector2.ZERO
+var dash_speed := 800.0
+var dash_distance := 100.0
+var dash_remaining := 0.0
+
 # Player always moves up at this speed
 @export var forward_speed := 200.0
 # Store the camera's fixed X position
@@ -32,6 +37,17 @@ func _ready():
 	if area:
 		area.body_entered.connect(_on_body_entered)
 
+func _physics_process(delta):
+	# Apply dash movement if in progress
+	if dash_remaining > 0.0:
+		var dash_step = min(dash_speed * delta, dash_remaining)
+		var dash_move = dash_vector.normalized() * dash_step
+		position += dash_move
+		dash_remaining -= dash_step
+
+		# Apply momentum
+		position += orbit_velocity * delta
+
 func _process(delta):
 	# Orbit input handling
 	if Input.is_action_just_pressed("orbit"):
@@ -41,13 +57,16 @@ func _process(delta):
 
 	elif Input.is_action_just_released("orbit") and is_orbiting:
 		stop_orbit()
+	
+	if Input.is_action_just_pressed("move_left"):
+		dash_vector = Vector2.LEFT.rotated(rotation)
+		dash_remaining = dash_distance
+		consume_fuel(100.0 / 3.0)
 
-	# TODO: Fuel consumption
-	if current_fuel > 0:
-		if is_orbiting:
-			pass
-		else:
-			consume_fuel(fuel_consumption_rate * delta)
+	elif Input.is_action_just_pressed("move_right"):
+		dash_vector = Vector2.RIGHT.rotated(rotation)
+		dash_remaining = dash_distance
+		consume_fuel(100.0 / 3.0)
 
 	# Movement update
 	if is_orbiting:
