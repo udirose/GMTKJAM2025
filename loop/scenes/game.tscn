@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b178e424jw7tx" path="res://scenes/ship.tscn" id="1_uwrxv"]
 [ext_resource type="FontFile" uid="uid://b0rk4h1y21dl8" path="res://assets/Bonus/kenvector_future.ttf" id="2_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://b7cabhpy217nu" path="res://scenes/planet1.tscn" id="2_yqjtg"]
-[ext_resource type="Script" path="res://scripts/ui.gd" id="3_iywne"]
+[ext_resource type="Script" uid="uid://cjf2ql02o0n1a" path="res://scripts/ui.gd" id="3_iywne"]
 
 [sub_resource type="Theme" id="Theme_iywne"]
 RichTextLabel/font_sizes/normal_font_size = 32
