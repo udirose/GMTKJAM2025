@@ -8,8 +8,7 @@ signal fuel_changed(new_fuel_amount)
 signal health_changed(new_health_amount)
 @export var max_fuel := 100.0
 @export var max_health := 100.0
-@export var fuel_consumption_rate := 10.0 # fuel per second when moving
-@export var orbit_fuel_consumption := 5.0 # fuel per second when orbiting
+@export var fuel_consumption_rate := 33.0 # fuel per second when moving
 var current_fuel := 100.0
 var current_health := 100.0
 
@@ -62,18 +61,22 @@ func _process(delta):
 		stop_orbit()
 	
 	if Input.is_action_just_pressed("move_left"):
+		if current_fuel <= fuel_consumption_rate:
+			return  # No fuel to move left
 		rotation -= PI / 8
 		orbit_velocity = orbit_velocity.rotated(-PI / 8)
 		dash_vector = Vector2.LEFT.rotated(rotation)
 		dash_remaining = dash_distance
-		consume_fuel(100.0 / 3.0)
+		consume_fuel(fuel_consumption_rate)
 
 	elif Input.is_action_just_pressed("move_right"):
+		if current_fuel <= fuel_consumption_rate:
+			return  # No fuel to move right
 		rotation += PI / 8
 		orbit_velocity = orbit_velocity.rotated(PI / 8)
 		dash_vector = Vector2.RIGHT.rotated(rotation)
 		dash_remaining = dash_distance
-		consume_fuel(100.0 / 3.0)
+		consume_fuel(fuel_consumption_rate)
 
 	# Movement update
 	if is_orbiting:
