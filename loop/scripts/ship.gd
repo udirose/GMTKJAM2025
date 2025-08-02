@@ -5,10 +5,13 @@ extends CharacterBody2D
 
 # Fuel system
 signal fuel_changed(new_fuel_amount)
+signal health_changed(new_health_amount)
 @export var max_fuel := 100.0
+@export var max_health := 100.0
 @export var fuel_consumption_rate := 10.0 # fuel per second when moving
 @export var orbit_fuel_consumption := 5.0 # fuel per second when orbiting
 var current_fuel := 100.0
+var current_health := 100.0
 
 var is_orbiting := false
 var orbit_center := Vector2.ZERO
@@ -130,6 +133,16 @@ func add_fuel(amount: float):
 	current_fuel = min(max_fuel, current_fuel + amount)
 	fuel_changed.emit(current_fuel)
 
+func reduce_health(amount: float):
+	current_health = max(0.0, current_health - amount)
+	health_changed.emit(current_health)
+	# if current_health <= 0.0:
+	# 	die()
+
+func add_health(amount: float):
+	current_health = min(max_health, current_health + amount)
+	health_changed.emit(current_health)
+
 func _on_body_entered(body):
 	print("Body entered: ", body.name)
 	if body.is_in_group("planet"):
@@ -138,3 +151,4 @@ func _on_body_entered(body):
 		orbit_velocity = Vector2.ZERO
 		velocity = Vector2.ZERO
 		forward_speed = 0.0
+		reduce_health(100.0)  # Example damage on collision

@@ -22,6 +22,7 @@ func _ready():
 	# Connect fuel signal from ship to UI
 	if ship_node and ui_node:
 		ship_node.fuel_changed.connect(ui_node.update_fuel)
+		ship_node.health_changed.connect(ui_node.update_health)
 	
 	# Find the ship node (adjust the path as needed)
 	if ship_node:
@@ -31,6 +32,7 @@ func _process(_delta):
 	if not is_paused and ship_node:
 		track_vertical_movement()
 		check_fuel_status() #restarts scene if out of fuel TODO: replace with gameover screen
+		check_health_status()
 		# Restart scene
 	if Input.is_action_just_pressed("restart"):
 		get_tree().reload_current_scene()
@@ -48,6 +50,13 @@ func track_vertical_movement():
 func check_fuel_status():
 	if ship_node.current_fuel <= 0:
 		print("Game Over - Out of Fuel!")
+		is_paused = true
+		get_tree().paused = true
+		game_over.emit()
+
+func check_health_status():
+	if ship_node.current_health <= 0:
+		print("Game Over - Ship Destroyed!")
 		is_paused = true
 		get_tree().paused = true
 		game_over.emit()

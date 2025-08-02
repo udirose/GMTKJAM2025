@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://ddnandfipglca"]
+
+[ext_resource type="FontFile" uid="uid://b0rk4h1y21dl8" path="res://assets/Bonus/kenvector_future.ttf" id="1_k5lm2"]
+
+[resource]
+RichTextLabel/font_sizes/normal_font_size = 32
+RichTextLabel/fonts/normal_font = ExtResource("1_k5lm2")
