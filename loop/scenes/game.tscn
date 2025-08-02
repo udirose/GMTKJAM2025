@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://dumn7vwab1sxu"]
+[gd_scene load_steps=9 format=3 uid="uid://dumn7vwab1sxu"]
 
 [ext_resource type="Script" uid="uid://du7xbbmt3sk8a" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b178e424jw7tx" path="res://scenes/ship.tscn" id="1_uwrxv"]
 [ext_resource type="FontFile" uid="uid://b0rk4h1y21dl8" path="res://assets/Bonus/kenvector_future.ttf" id="2_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://b7cabhpy217nu" path="res://scenes/planet1.tscn" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://cjf2ql02o0n1a" path="res://scripts/ui.gd" id="3_iywne"]
+[ext_resource type="Texture2D" uid="uid://bnp0qu1hfdaey" path="res://assets/Space Background-3.png" id="7_u5sy4"]
+[ext_resource type="Script" uid="uid://b2qx6juq2o57y" path="res://scripts/parallax_background.gd" id="8_gee14"]
 
 [sub_resource type="Theme" id="Theme_iywne"]
 RichTextLabel/font_sizes/normal_font_size = 32
@@ -43,6 +45,31 @@ bbcode_enabled = true
 text = "est dist:"
 fit_content = true
 
+[node name="ProgressBar" type="ProgressBar" parent="UI/UI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -28.0
+offset_top = -3.0
+offset_right = 293.0
+offset_bottom = 27.0
+grow_horizontal = 0
+grow_vertical = 0
+rotation = 4.71239
+value = 20.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/UI"]
+layout_mode = 0
+offset_left = 1011.0
+offset_top = 611.0
+offset_right = 1153.0
+offset_bottom = 651.0
+bbcode_enabled = true
+text = "Fuel"
+
 [node name="ship" parent="." instance=ExtResource("1_uwrxv")]
 process_mode = 1
 scale = Vector2(2, 2)
@@ -66,3 +93,10 @@ position = Vector2(-279, -2568)
 
 [node name="planet6" parent="." instance=ExtResource("2_yqjtg")]
 position = Vector2(283, -3400)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+script = ExtResource("8_gee14")
+background_texture = ExtResource("7_u5sy4")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(0, 3000)
