@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhxv6e80od5ee"]
+
+[ext_resource type="Texture2D" uid="uid://cnor3vt3ubaps" path="res://assets/Planets/planet08.png" id="1_rdbwr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c3u4w"]
+radius = 42.107
+
+[node name="red2_planet" type="Node2D" groups=["planet"]]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["planet"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("1_rdbwr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("CircleShape2D_c3u4w")

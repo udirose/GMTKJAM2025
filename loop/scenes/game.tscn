@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://du7xbbmt3sk8a" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b178e424jw7tx" path="res://scenes/ship.tscn" id="1_uwrxv"]
 [ext_resource type="Theme" uid="uid://ddnandfipglca" path="res://themes/ui.tres" id="2_0tnpc"]
-[ext_resource type="PackedScene" uid="uid://b7cabhpy217nu" path="res://scenes/green_planet.tscn" id="2_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://b7cabhpy217nu" path="res://scenes/planets/green_planet.tscn" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://cjf2ql02o0n1a" path="res://scripts/ui.gd" id="3_iywne"]
 [ext_resource type="Theme" uid="uid://r1xy1su53kc0" path="res://themes/bar.tres" id="4_0tnpc"]
 [ext_resource type="Theme" uid="uid://dnwwkp2jqt4jh" path="res://themes/buttons.tres" id="4_gee14"]
