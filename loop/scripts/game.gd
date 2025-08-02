@@ -5,10 +5,10 @@ var is_paused = false
 # Score tracking variables
 signal score_increase(amount)
 signal game_over
-@onready var ui_node = $UI/UI  # Adjust path as needed
+@onready var ui_node = $UI/UI # Adjust path as needed
 @onready var ship_node = $ship
 var last_ship_y_position = 0.0
-var position_threshold = 50.0  # How much vertical movement needed for score increase
+var position_threshold = 50.0 # How much vertical movement needed for score increase
 
 func _ready():
 	# Ensure the game starts unpaused
@@ -30,7 +30,7 @@ func _ready():
 func _process(_delta):
 	if not is_paused and ship_node:
 		track_vertical_movement()
-		check_fuel_status() #restarts scene if out of fuel TODO: replace with gameover screen
+		# check_fuel_status() #restarts scene if out of fuel TODO: replace with gameover screen
 		# Restart scene
 	if Input.is_action_just_pressed("restart"):
 		get_tree().reload_current_scene()

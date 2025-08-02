@@ -59,11 +59,15 @@ func _process(delta):
 		stop_orbit()
 	
 	if Input.is_action_just_pressed("move_left"):
+		rotation -= PI / 8
+		orbit_velocity = orbit_velocity.rotated(-PI / 8)
 		dash_vector = Vector2.LEFT.rotated(rotation)
 		dash_remaining = dash_distance
 		consume_fuel(100.0 / 3.0)
 
 	elif Input.is_action_just_pressed("move_right"):
+		rotation += PI / 8
+		orbit_velocity = orbit_velocity.rotated(PI / 8)
 		dash_vector = Vector2.RIGHT.rotated(rotation)
 		dash_remaining = dash_distance
 		consume_fuel(100.0 / 3.0)
@@ -76,7 +80,6 @@ func _process(delta):
 		else:
 			rotation = orbit_angle
 		rotation = wrapf(rotation, -PI, PI) # Ensure rotation is within -PI to PI range
-		print(rotation)
 	else:
 		# Always move up (negative Y in Godot by default)
 		position.y -= forward_speed * delta
