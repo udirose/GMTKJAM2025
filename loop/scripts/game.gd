@@ -21,19 +21,19 @@ func _ready():
 	if ship_node:
 		last_ship_y_position = ship_node.global_position.y
 
-func _process(delta):
+func _process(_delta):
 	if not is_paused and ship_node:
 		track_vertical_movement()
 
 func track_vertical_movement():
 	var current_y = ship_node.global_position.y
-	var y_difference = current_y - last_ship_y_position
+	var y_difference = last_ship_y_position - current_y
  
-	# Only increase score if y has increased (moved downward in Godot)
+	# Only increase score if player has moved up (y decreased in Godot)
 	if y_difference >= position_threshold:
 		var score_points = int(y_difference / position_threshold)
 		score_increase.emit(score_points)
-		last_ship_y_position += score_points * position_threshold
+		last_ship_y_position -= score_points * position_threshold
 
 func _input(event):
 	if event.is_action_pressed("pause"):
