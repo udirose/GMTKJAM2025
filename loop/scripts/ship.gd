@@ -1,4 +1,4 @@
-extends Node2D
+extends CharacterBody2D
 
 @export var orbit_speed := 2.0 # radians per second
 @onready var ship_sprite = $Sprite2D
@@ -32,6 +32,10 @@ var camera_fixed_x := 0.0
 
 func _ready():
 	camera_fixed_x = camera.global_position.x
+
+	var area = $Area2D
+	if area:
+		area.body_entered.connect(_on_body_entered)
 
 func _physics_process(delta):
 	# Apply dash movement if in progress
@@ -125,3 +129,12 @@ func consume_fuel(amount: float):
 func add_fuel(amount: float):
 	current_fuel = min(max_fuel, current_fuel + amount)
 	fuel_changed.emit(current_fuel)
+
+func _on_body_entered(body):
+	print("Body entered: ", body.name)
+	if body.is_in_group("planet"):
+		print("hit planet")
+		# Stop all movement
+		orbit_velocity = Vector2.ZERO
+		velocity = Vector2.ZERO
+		forward_speed = 0.0
