@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://dumn7vwab1sxu"]
+[gd_scene load_steps=13 format=3 uid="uid://dumn7vwab1sxu"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b178e424jw7tx" path="res://scenes/ship.tscn" id="1_uwrxv"]
 [ext_resource type="FontFile" uid="uid://b0rk4h1y21dl8" path="res://assets/Bonus/kenvector_future.ttf" id="2_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://b7cabhpy217nu" path="res://scenes/planet1.tscn" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://cjf2ql02o0n1a" path="res://scripts/ui.gd" id="3_iywne"]
+[ext_resource type="Theme" uid="uid://dnwwkp2jqt4jh" path="res://themes/buttons.tres" id="4_gee14"]
 [ext_resource type="Texture2D" uid="uid://dnqqj1bl5ijwl" path="res://assets/Space Background.png" id="7_u5sy4"]
 [ext_resource type="Script" uid="uid://b2qx6juq2o57y" path="res://scripts/parallax_background.gd" id="8_gee14"]
 
@@ -81,6 +82,69 @@ offset_bottom = -71.0
 rotation = 1.5708
 bbcode_enabled = true
 text = "Fuel"
+
+[node name="GameOver" type="CanvasLayer" parent="UI"]
+unique_name_in_owner = true
+
+[node name="ColorRect" type="ColorRect" parent="UI/GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.454902, 0.054902, 0.054902, 0.439216)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/GameOver/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -575.0
+offset_top = -193.0
+offset_right = 576.0
+offset_bottom = -97.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_gee14")
+bbcode_enabled = true
+text = "[center][shake]CRITICAL DAMAGE RECEIVED...
+INITIATE LOOP DRIVE?"
+fit_content = true
+
+[node name="loop" type="Button" parent="UI/GameOver/ColorRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -426.0
+offset_top = -235.0
+offset_right = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_gee14")
+text = "LOOP!!"
+
+[node name="quit" type="Button" parent="UI/GameOver/ColorRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -9.0
+offset_top = -239.0
+offset_right = 412.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_gee14")
+text = "ACCEPT YOUR FATE"
 
 [node name="ship" parent="." instance=ExtResource("1_uwrxv")]
 process_mode = 1

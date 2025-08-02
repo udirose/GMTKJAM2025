@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dnwwkp2jqt4jh"]
+
+[ext_resource type="FontFile" uid="uid://bftb6kj7cjwos" path="res://assets/Kenney Pixel.ttf" id="1_hxref"]
+
+[resource]
+Button/font_sizes/font_size = 64
+Button/fonts/font = ExtResource("1_hxref")
+RichTextLabel/font_sizes/normal_font_size = 128
+RichTextLabel/fonts/normal_font = ExtResource("1_hxref")

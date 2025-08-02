@@ -4,6 +4,7 @@ var is_paused = false
 
 # Score tracking variables
 signal score_increase(amount)
+signal game_over
 @onready var ui_node = $UI/UI  # Adjust path as needed
 @onready var ship_node = $ship
 var last_ship_y_position = 0.0
@@ -16,6 +17,7 @@ func _ready():
 	# Connect score signal to UI
 	if ui_node:
 		score_increase.connect(ui_node.increase_score)
+		game_over.connect(ui_node.show_game_over)
 	
 	# Connect fuel signal from ship to UI
 	if ship_node and ui_node:
@@ -46,7 +48,9 @@ func track_vertical_movement():
 func check_fuel_status():
 	if ship_node.current_fuel <= 0:
 		print("Game Over - Out of Fuel!")
-		get_tree().reload_current_scene()
+		is_paused = true
+		get_tree().paused = true
+		game_over.emit()
 
 func _input(event):
 	if event.is_action_pressed("pause"):
