@@ -1,26 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://dumn7vwab1sxu"]
+[gd_scene load_steps=10 format=3 uid="uid://dumn7vwab1sxu"]
 
 [ext_resource type="Script" uid="uid://du7xbbmt3sk8a" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b178e424jw7tx" path="res://scenes/ship.tscn" id="1_uwrxv"]
-[ext_resource type="FontFile" uid="uid://b0rk4h1y21dl8" path="res://assets/Bonus/kenvector_future.ttf" id="2_lbhrr"]
+[ext_resource type="Theme" uid="uid://ddnandfipglca" path="res://themes/ui.tres" id="2_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://b7cabhpy217nu" path="res://scenes/green_planet.tscn" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://cjf2ql02o0n1a" path="res://scripts/ui.gd" id="3_iywne"]
+[ext_resource type="Theme" uid="uid://r1xy1su53kc0" path="res://themes/bar.tres" id="4_0tnpc"]
 [ext_resource type="Theme" uid="uid://dnwwkp2jqt4jh" path="res://themes/buttons.tres" id="4_gee14"]
 [ext_resource type="Texture2D" uid="uid://dnqqj1bl5ijwl" path="res://assets/Space Background.png" id="7_u5sy4"]
 [ext_resource type="Script" uid="uid://b2qx6juq2o57y" path="res://scripts/parallax_background.gd" id="8_gee14"]
-
-[sub_resource type="Theme" id="Theme_iywne"]
-RichTextLabel/font_sizes/normal_font_size = 32
-RichTextLabel/fonts/normal_font = ExtResource("2_lbhrr")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u5sy4"]
-bg_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gee14"]
-
-[sub_resource type="Theme" id="Theme_0tnpc"]
-ProgressBar/styles/background = SubResource("StyleBoxFlat_u5sy4")
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_gee14")
 
 [node name="game" type="Node2D"]
 process_mode = 3
@@ -39,7 +27,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme = SubResource("Theme_iywne")
+theme = ExtResource("2_0tnpc")
 script = ExtResource("3_iywne")
 
 [node name="score" type="RichTextLabel" parent="UI/UI"]
@@ -47,7 +35,7 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -323.0
+offset_left = -362.0
 offset_top = 10.0
 offset_bottom = 101.0
 grow_horizontal = 0
@@ -69,7 +57,7 @@ offset_bottom = 27.0
 grow_horizontal = 0
 grow_vertical = 0
 rotation = 4.71239
-theme = SubResource("Theme_0tnpc")
+theme = ExtResource("4_0tnpc")
 value = 20.0
 show_percentage = false
 
@@ -83,8 +71,42 @@ rotation = 1.5708
 bbcode_enabled = true
 text = "Fuel"
 
+[node name="health_bar" type="ProgressBar" parent="UI/UI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -323.0
+offset_top = -27.0
+offset_right = 324.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_0tnpc")
+value = 100.0
+show_percentage = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/UI/health_bar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -190.5
+offset_top = -43.0
+offset_right = 191.5
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center]HULL INTEGRITY"
+
 [node name="GameOver" type="CanvasLayer" parent="UI"]
 unique_name_in_owner = true
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="UI/GameOver"]
 anchors_preset = 15
