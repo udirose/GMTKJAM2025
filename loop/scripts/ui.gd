@@ -2,6 +2,9 @@ extends Control
 
 @onready var score = $score
 @onready var fuel_bar = $fuel_bar
+@onready var game_over_screen = %GameOver
+@onready var loop_button = %loop
+@onready var quit_button = %quit
 
 var current_score = 0
 var max_fuel = 100.0
@@ -10,6 +13,16 @@ var current_fuel = 100.0
 func _ready():
 	update_score_display()
 	update_fuel_display()
+	
+	# Hide game over screen initially
+	if game_over_screen:
+		game_over_screen.visible = false
+	
+	# Connect button signals
+	if loop_button:
+		loop_button.pressed.connect(_on_loop_button_pressed)
+	if quit_button:
+		quit_button.pressed.connect(_on_quit_button_pressed)
 
 func increase_score(amount = 1):
 	current_score += amount
@@ -34,5 +47,21 @@ func update_fuel_display():
 			fuel_bar.modulate = Color.YELLOW
 		else:  # More than 2/3 - Green
 			fuel_bar.modulate = Color.GREEN
+
+func show_game_over():
+	if game_over_screen:
+		game_over_screen.visible = true
+
+func _on_loop_button_pressed():
+	# Unpause the game before restarting
+	get_tree().paused = false
+	# Restart the current scene
+	get_tree().reload_current_scene()
+
+func _on_quit_button_pressed():
+	# Unpause before quitting (just in case)
+	get_tree().paused = false
+	# Quit the game
+	get_tree().quit()
 
 
