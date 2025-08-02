@@ -5,7 +5,8 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_c3u4w"]
 radius = 42.107
 
-[node name="blue2_planet" type="Node2D" groups=["planet"]]
+[node name="darkbrown_planet" type="Node2D" groups=["planet"]]
+scale = Vector2(2, 2)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." groups=["planet"]]
 

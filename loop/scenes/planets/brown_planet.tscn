@@ -6,6 +6,7 @@
 radius = 42.107
 
 [node name="brown_planet" type="Node2D" groups=["planet"]]
+scale = Vector2(2, 2)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." groups=["planet"]]
 

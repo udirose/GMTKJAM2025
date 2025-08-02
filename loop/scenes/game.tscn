@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dumn7vwab1sxu"]
+[gd_scene load_steps=20 format=3 uid="uid://dumn7vwab1sxu"]
 
 [ext_resource type="Script" uid="uid://du7xbbmt3sk8a" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b178e424jw7tx" path="res://scenes/ship.tscn" id="1_uwrxv"]
@@ -9,6 +9,16 @@
 [ext_resource type="Theme" uid="uid://dnwwkp2jqt4jh" path="res://themes/buttons.tres" id="4_gee14"]
 [ext_resource type="Texture2D" uid="uid://dnqqj1bl5ijwl" path="res://assets/Space Background.png" id="7_u5sy4"]
 [ext_resource type="Script" uid="uid://b2qx6juq2o57y" path="res://scripts/parallax_background.gd" id="8_gee14"]
+[ext_resource type="Script" uid="uid://diurek62gpvc4" path="res://scripts/planet_spawner.gd" id="10_ca42v"]
+[ext_resource type="PackedScene" uid="uid://l2qm3e5bkjm8" path="res://scenes/planets/blue_planet.tscn" id="11_rysoc"]
+[ext_resource type="PackedScene" uid="uid://qiuyw1a6245h" path="res://scenes/planets/brown_planet.tscn" id="12_ssvqc"]
+[ext_resource type="PackedScene" uid="uid://dt6o8h536du0c" path="res://scenes/planets/blue2_planet.tscn" id="13_264po"]
+[ext_resource type="PackedScene" uid="uid://brrssries4up3" path="res://scenes/planets/red_planet.tscn" id="14_1kice"]
+[ext_resource type="PackedScene" uid="uid://dhxv6e80od5ee" path="res://scenes/planets/red2_planet.tscn" id="15_5newe"]
+[ext_resource type="PackedScene" uid="uid://bxs5h02ysv7kl" path="res://scenes/planets/darkbrown_planet.tscn" id="16_37s47"]
+[ext_resource type="PackedScene" uid="uid://cv7lkbslxhdi" path="res://scenes/planets/purple_planet.tscn" id="17_ssvqc"]
+[ext_resource type="PackedScene" uid="uid://bqelvwfrrfy5n" path="res://scenes/planets/purple2_planet.tscn" id="18_264po"]
+[ext_resource type="PackedScene" uid="uid://c5fcowl8sf2fa" path="res://scenes/planets/void_planet.tscn" id="19_264po"]
 
 [node name="game" type="Node2D"]
 process_mode = 3
@@ -173,10 +183,7 @@ process_mode = 1
 scale = Vector2(2, 2)
 
 [node name="Camera2D" type="Camera2D" parent="ship"]
-
-[node name="planet" parent="." instance=ExtResource("2_yqjtg")]
-position = Vector2(0, -379)
-scale = Vector2(2, 2)
+offset = Vector2(0, -100)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 script = ExtResource("8_gee14")
@@ -184,3 +191,11 @@ background_texture = ExtResource("7_u5sy4")
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_mirroring = Vector2(0, 3000)
+
+[node name="PlanetSpawner" type="Node2D" parent="."]
+script = ExtResource("10_ca42v")
+planet_scenes = Array[PackedScene]([ExtResource("2_yqjtg"), ExtResource("11_rysoc"), ExtResource("12_ssvqc"), ExtResource("13_264po"), ExtResource("14_1kice"), ExtResource("15_5newe"), ExtResource("16_37s47"), ExtResource("17_ssvqc"), ExtResource("18_264po"), ExtResource("19_264po")])
+planet_weights = Array[float]([5.0, 5.0, 5.0, 5.0, 3.0, 2.0, 1.0, 1.0, 1.0, 0.5])
+spawn_distance_ahead = 2000.0
+min_spawn_interval_y = 500.0
+max_spawn_interval_y = 1000.0
