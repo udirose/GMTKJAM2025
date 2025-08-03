@@ -105,7 +105,7 @@ theme = ExtResource("2_ekxnf")
 theme_override_fonts/normal_font = ExtResource("6_rtw2f")
 theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
-text = "Hold [color=red](space)[/color] to Orbit, Release to Launch Yourself. Thrust [color=red](WASD)[/color] to Manuever with Fuel to Avoid Crashing into PLANETS. [color=red]Dont be out of bounds when you are not orbiting!"
+text = "Hold [color=red](space)[/color] to Orbit, Release to Launch Yourself. Thrust [color=red](WASD)[/color] to Manuever with Fuel to Avoid Crashing into PLANETS. [color=red]Dont be out of bounds when you are not orbiting![/color] [color=green]tip: orbiting closer to planets increases speed"
 fit_content = true
 
 [connection signal="pressed" from="UI/play" to="UI" method="_on_play_pressed"]

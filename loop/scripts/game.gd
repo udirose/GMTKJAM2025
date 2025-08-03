@@ -10,6 +10,9 @@ signal game_over
 var last_ship_y_position = 0.0
 var position_threshold = 50.0 # How much vertical movement needed for score increase
 
+# Visual systems
+var best_distance_marker: Node2D
+
 func _ready():
 	# Add this node to the game group for trail system
 	add_to_group("game")
@@ -30,6 +33,9 @@ func _ready():
 	# Find the ship node (adjust the path as needed)
 	if ship_node:
 		last_ship_y_position = ship_node.global_position.y
+	
+	# Create visual systems
+	setup_visual_systems()
 
 func _process(_delta):
 	if not is_paused and ship_node:
@@ -76,3 +82,9 @@ func toggle_pause():
 		print("Game paused")
 	else:
 		print("Game unpaused")
+
+func setup_visual_systems():
+	# Create best distance marker
+	var BestDistanceMarkerScript = preload("res://scripts/best_distance_marker.gd")
+	best_distance_marker = BestDistanceMarkerScript.new()
+	add_child(best_distance_marker)
