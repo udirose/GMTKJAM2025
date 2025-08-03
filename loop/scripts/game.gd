@@ -11,6 +11,9 @@ var last_ship_y_position = 0.0
 var position_threshold = 50.0 # How much vertical movement needed for score increase
 
 func _ready():
+	# Add this node to the game group for trail system
+	add_to_group("game")
+	
 	# Ensure the game starts unpaused
 	get_tree().paused = false
 	
