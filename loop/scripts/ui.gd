@@ -72,7 +72,8 @@ func update_health_display():
 func show_game_over():
 	# Update global highscore when game ends
 	if has_node("/root/Global"):
-		Global.update_highscore(current_score)
+		var global_node = get_node("/root/Global")
+		global_node.update_highscore(current_score)
 	
 	if game_over_screen:
 		game_over_screen.visible = true

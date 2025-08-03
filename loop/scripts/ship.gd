@@ -28,6 +28,8 @@ var dash_remaining := 0.0
 @export var forward_speed := 200.0
 # Store the camera's fixed X position
 var camera_fixed_x := 0.0
+# Camera smoothing
+@export var camera_smooth_speed := 1.0
 
 @onready var camera = $Camera2D
 
@@ -38,6 +40,7 @@ func _ready():
 	var area = $Area2D
 	if area:
 		area.body_entered.connect(_on_body_entered)
+		area.area_entered.connect(_on_area_entered)
 
 func _physics_process(delta):
 	# Apply dash movement if in progress
@@ -91,9 +94,41 @@ func _process(delta):
 		position.y -= forward_speed * delta
 		position += orbit_velocity * delta
 
-	# Camera only follows player's Y, X is fixed
-	camera.global_position.x = camera_fixed_x
+	# Camera follows player's Y, and X if orbiting off-screen
 	camera.global_position.y = global_position.y
+	
+	if is_orbiting:
+		# Check if ship is out of bounds horizontally based on CURRENT camera position
+		var viewport_width = get_viewport().get_visible_rect().size.x
+		var camera_left_bound = camera.global_position.x - viewport_width / 2
+		var camera_right_bound = camera.global_position.x + viewport_width / 2
+		
+		# Use faster smoothing when orbiting to reduce jitter
+		var orbit_smooth_speed = camera_smooth_speed
+		
+		# Smoothly follow X if ship is outside the current camera view
+		if global_position.x < camera_left_bound or global_position.x > camera_right_bound:
+			camera.global_position.x = lerp(camera.global_position.x, global_position.x, orbit_smooth_speed * delta)
+		else:
+			# When ship is in view, gently pull camera back toward fixed position
+			var target_x = lerp(camera.global_position.x, camera_fixed_x, 0.3)
+			camera.global_position.x = lerp(camera.global_position.x, target_x, orbit_smooth_speed * delta)
+	else:
+		# Smoothly return to fixed X when not orbiting
+		camera.global_position.x = lerp(camera.global_position.x, camera_fixed_x, camera_smooth_speed * delta)
+		
+		# Check if player is off-screen while not orbiting - kill them
+		check_off_screen_death()
+
+func check_off_screen_death():
+	var viewport_width = get_viewport().get_visible_rect().size.x
+	var camera_left_bound = camera_fixed_x - viewport_width / 2
+	var camera_right_bound = camera_fixed_x + viewport_width / 2
+	
+	# If ship is outside screen bounds while not orbiting, kill them
+	if global_position.x < camera_left_bound or global_position.x > camera_right_bound:
+		print("Player went off-screen while not orbiting - Game Over!")
+		reduce_health(current_health)  # Kill the player
 
 
 func get_closest_planet() -> Node2D:
@@ -158,3 +193,24 @@ func _on_body_entered(body):
 		velocity = Vector2.ZERO
 		forward_speed = 0.0
 		reduce_health(100.0)  # Example damage on collision
+
+func _on_area_entered(area):
+	print("Area entered: ", area.name)
+	if area.is_in_group("barrier") and not is_orbiting:
+		print("Hit barrier while not orbiting!")
+		# Damage the ship
+		reduce_health(20.0)
+		
+		# Determine which side barrier was hit and bounce in opposite direction
+		var barrier_x = area.global_position.x
+		var ship_x = global_position.x
+		
+		if ship_x > barrier_x:
+			# Hit left barrier, push right
+			orbit_velocity.x += 150.0
+		else:
+			# Hit right barrier, push left
+			orbit_velocity.x -= 150.0
+		
+		# Add some upward velocity to help escape
+		orbit_velocity.y -= 50.0

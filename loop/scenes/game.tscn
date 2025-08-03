@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dumn7vwab1sxu"]
+[gd_scene load_steps=26 format=3 uid="uid://dumn7vwab1sxu"]
 
 [ext_resource type="Script" uid="uid://du7xbbmt3sk8a" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b178e424jw7tx" path="res://scenes/ship.tscn" id="1_uwrxv"]
@@ -19,6 +19,33 @@
 [ext_resource type="PackedScene" uid="uid://cv7lkbslxhdi" path="res://scenes/planets/purple_planet.tscn" id="17_ssvqc"]
 [ext_resource type="PackedScene" uid="uid://bqelvwfrrfy5n" path="res://scenes/planets/purple2_planet.tscn" id="18_264po"]
 [ext_resource type="PackedScene" uid="uid://c5fcowl8sf2fa" path="res://scenes/planets/void_planet.tscn" id="19_264po"]
+[ext_resource type="Script" uid="uid://dhandgelb4jw4" path="res://scripts/barriers.gd" id="20_1kice"]
+[ext_resource type="Shader" uid="uid://dd6pho8eq5alu" path="res://shaders/game.gdshader" id="21_5newe"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_37s47"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_264po"]
+size = Vector2(20, 669)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5newe"]
+shader = ExtResource("21_5newe")
+shader_parameter/time_scale = 1.0
+shader_parameter/laser_color = Color(1, 0.2, 0.2, 1)
+shader_parameter/core_color = Color(1, 1, 1, 1)
+shader_parameter/glow_color = Color(1, 0.4, 0.4, 1)
+shader_parameter/beam_speed = 15.0
+shader_parameter/beam_thickness = 0.3
+shader_parameter/intensity = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bt5mj"]
+shader = ExtResource("21_5newe")
+shader_parameter/time_scale = 1.0
+shader_parameter/laser_color = Color(1, 0.2, 0.2, 1)
+shader_parameter/core_color = Color(1, 1, 1, 1)
+shader_parameter/glow_color = Color(1, 0.4, 0.4, 1)
+shader_parameter/beam_speed = 15.0
+shader_parameter/beam_thickness = 0.3
+shader_parameter/intensity = 3.0
 
 [node name="game" type="Node2D"]
 process_mode = 3
@@ -199,3 +226,35 @@ planet_weights = Array[float]([5.0, 5.0, 5.0, 5.0, 3.0, 2.0, 1.0, 1.0, 1.0, 0.5]
 spawn_distance_ahead = 2000.0
 min_spawn_interval_y = 500.0
 max_spawn_interval_y = 1000.0
+
+[node name="barriers" type="Node2D" parent="."]
+script = ExtResource("20_1kice")
+
+[node name="left_barrier" type="Area2D" parent="barriers" groups=["barrier"]]
+material = SubResource("ShaderMaterial_37s47")
+position = Vector2(-575, -430)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="barriers/left_barrier"]
+position = Vector2(0, 324.5)
+shape = SubResource("RectangleShape2D_264po")
+
+[node name="ColorRect" type="ColorRect" parent="barriers/left_barrier/CollisionShape2D"]
+material = SubResource("ShaderMaterial_5newe")
+offset_left = -10.0
+offset_top = -332.5
+offset_right = 27.0
+offset_bottom = 333.5
+
+[node name="right_barrier" type="Area2D" parent="barriers" groups=["barrier"]]
+position = Vector2(575, -430)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="barriers/right_barrier"]
+position = Vector2(0, 324.5)
+shape = SubResource("RectangleShape2D_264po")
+
+[node name="ColorRect" type="ColorRect" parent="barriers/right_barrier/CollisionShape2D"]
+material = SubResource("ShaderMaterial_bt5mj")
+offset_left = -29.0
+offset_top = -333.0
+offset_right = 16.0
+offset_bottom = 333.0

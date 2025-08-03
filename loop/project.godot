@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="loop"
-run/main_scene="uid://dg1m34b4ag32w"
+run/main_scene="uid://dumn7vwab1sxu"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -26,6 +26,7 @@ window/stretch/mode="viewport"
 [global_group]
 
 planet=""
+barrier=""
 
 [input]
 

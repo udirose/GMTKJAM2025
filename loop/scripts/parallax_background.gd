@@ -11,20 +11,22 @@ func _process(_delta):
 		scroll_offset.y = camera.global_position.y
 
 func create_alternating_layers():
-	# Normal layer
+	# Left side layer
 	var layer1 = ParallaxLayer.new()
 	var sprite1 = Sprite2D.new()
 	sprite1.texture = background_texture
-	layer1.motion_mirroring.y = background_texture.get_height() * 2  # Double height for alternating
+	sprite1.position.x = -background_texture.get_width() / 2.0
+	layer1.motion_mirroring.y = background_texture.get_height()
+	layer1.motion_mirroring.x = background_texture.get_width() * 2  # Wide horizontal mirroring
 	layer1.add_child(sprite1)
 	add_child(layer1)
 	
-	# Flipped layer offset by texture height
+	# Right side layer
 	var layer2 = ParallaxLayer.new()
 	var sprite2 = Sprite2D.new()
 	sprite2.texture = background_texture
-	sprite2.flip_v = true  # Flip vertically
-	sprite2.position.y = background_texture.get_height()
-	layer2.motion_mirroring.y = background_texture.get_height() * 2
+	sprite2.position.x = background_texture.get_width() / 2.0
+	layer2.motion_mirroring.y = background_texture.get_height()
+	layer2.motion_mirroring.x = background_texture.get_width() * 2  # Wide horizontal mirroring
 	layer2.add_child(sprite2)
 	add_child(layer2)

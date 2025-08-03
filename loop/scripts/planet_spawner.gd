@@ -62,14 +62,19 @@ func check_spawn_planets():
 	var camera_y = camera.global_position.y
 	var spawn_threshold = camera_y - spawn_distance_ahead
 	
-	# Spawn planets ahead of the camera
+	# Spawn planets ahead of the camera, ensuring only one per interval
 	while last_spawn_y > spawn_threshold:
-		last_spawn_y -= get_random_spawn_interval()
+		var spawn_interval = get_random_spawn_interval()
+		last_spawn_y -= spawn_interval
 		spawn_planet_at_y(last_spawn_y)
 
 func spawn_planet_at_y(y_position: float):
 	if planet_scenes.is_empty():
 		print("No planet scenes configured!")
+		return
+	
+	# Check if there's already a planet too close to this position
+	if is_position_too_close_to_existing_planet(y_position):
 		return
 	
 	# Get a random planet scene based on weights
@@ -96,6 +101,19 @@ func spawn_planet_at_y(y_position: float):
 	
 	# Add to planet group for collision detection (deferred)
 	planet.call_deferred("add_to_group", "planet")
+
+func is_position_too_close_to_existing_planet(y_position: float) -> bool:
+	var min_distance = min_spawn_interval_y * 0.8  # Use 80% of min interval as safety buffer
+	
+	for planet in spawned_planets:
+		if not is_instance_valid(planet):
+			continue
+		
+		var distance = abs(planet.global_position.y - y_position)
+		if distance < min_distance:
+			return true
+	
+	return false
 
 func get_weighted_random_planet() -> PackedScene:
 	if planet_scenes.is_empty():
