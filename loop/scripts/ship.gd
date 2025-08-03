@@ -19,10 +19,11 @@ var orbit_angle := 0.0
 var orbit_velocity := Vector2.ZERO
 var orbit_direction := 1 # 1 for clockwise, -1 for counterclockwise
 
-var dash_vector: Vector2 = Vector2.ZERO
-var dash_speed := 800.0
-var dash_distance := 100.0
-var dash_remaining := 0.0
+# Thrust movement system
+@export var thrust_power := 400.0
+@export var max_thrust_velocity := 600.0
+var thrust_velocity := Vector2.ZERO
+@export var thrust_decay := 2.0  # How quickly thrust velocity decays
 
 # Player always moves up at this speed
 @export var forward_speed := 200.0
@@ -43,15 +44,14 @@ func _ready():
 		area.area_entered.connect(_on_area_entered)
 
 func _physics_process(delta):
-	# Apply dash movement if in progress
-	if dash_remaining > 0.0:
-		var dash_step = min(dash_speed * delta, dash_remaining)
-		var dash_move = dash_vector.normalized() * dash_step
-		position += dash_move
-		dash_remaining -= dash_step
-
-		# Apply momentum
-		position += orbit_velocity * delta
+	# Apply thrust decay when not actively thrusting
+	thrust_velocity = thrust_velocity.move_toward(Vector2.ZERO, thrust_decay * delta)
+	
+	# Apply thrust movement
+	position += thrust_velocity * delta
+	
+	# Apply orbital momentum
+	position += orbit_velocity * delta
 
 func _process(delta):
 	# Orbit input handling
@@ -63,23 +63,26 @@ func _process(delta):
 	elif Input.is_action_just_released("orbit") and is_orbiting:
 		stop_orbit()
 	
-	if Input.is_action_just_pressed("move_left"):
-		if current_fuel <= fuel_consumption_rate:
-			return  # No fuel to move left
-		rotation -= PI / 8
-		orbit_velocity = orbit_velocity.rotated(-PI / 8)
-		dash_vector = Vector2.LEFT.rotated(rotation)
-		dash_remaining = dash_distance
-		consume_fuel(fuel_consumption_rate)
-
-	elif Input.is_action_just_pressed("move_right"):
-		if current_fuel <= fuel_consumption_rate:
-			return  # No fuel to move right
-		rotation += PI / 8
-		orbit_velocity = orbit_velocity.rotated(PI / 8)
-		dash_vector = Vector2.RIGHT.rotated(rotation)
-		dash_remaining = dash_distance
-		consume_fuel(fuel_consumption_rate)
+	# Thrust input handling
+	var thrust_input := Vector2.ZERO
+	
+	if Input.is_action_pressed("move_up"):
+		thrust_input.y -= 1.0
+	if Input.is_action_pressed("move_down"):
+		thrust_input.y += 1.0
+	if Input.is_action_pressed("move_left"):
+		thrust_input.x -= 1.0
+	if Input.is_action_pressed("move_right"):
+		thrust_input.x += 1.0
+	
+	# Apply thrust if there's input and fuel
+	if thrust_input.length() > 0.0 and current_fuel > 0.0:
+		var thrust_force = thrust_input.normalized() * thrust_power * delta
+		thrust_velocity += thrust_force
+		thrust_velocity = thrust_velocity.limit_length(max_thrust_velocity)
+		
+		# Consume fuel based on thrust usage
+		consume_fuel(fuel_consumption_rate * thrust_input.length() * delta)
 
 	# Movement update
 	if is_orbiting:
@@ -90,7 +93,7 @@ func _process(delta):
 			rotation = orbit_angle
 		rotation = wrapf(rotation, -PI, PI) # Ensure rotation is within -PI to PI range
 	else:
-		# Always move up (negative Y in Godot by default)
+		# Always move up (negative Y in Godot by default) - base forward movement
 		position.y -= forward_speed * delta
 		position += orbit_velocity * delta
 
@@ -159,9 +162,9 @@ func update_orbit(delta):
 	orbit_angle += orbit_speed * delta * orbit_direction
 	position = orbit_center + Vector2.RIGHT.rotated(orbit_angle) * orbit_radius
 
-	# Calculate tangent velocity for slingshot direction
+	# Calculate tangent velocity for slingshot direction (much slower)
 	var tangent := Vector2.RIGHT.rotated(orbit_angle + orbit_direction * PI / 2)
-	orbit_velocity = tangent * orbit_speed * orbit_radius
+	orbit_velocity = tangent * orbit_speed * orbit_radius * 0.3  # Reduce slingshot speed by 70%
 
 func stop_orbit():
 	is_orbiting = false
