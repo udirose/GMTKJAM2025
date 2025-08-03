@@ -75,6 +75,11 @@ func show_game_over():
 		var global_node = get_node("/root/Global")
 		global_node.update_highscore(current_score)
 	
+	# Restart background music on death
+	if has_node("/root/SoundManager"):
+		var sound_manager = get_node("/root/SoundManager")
+		sound_manager.restart_music()
+	
 	if game_over_screen:
 		game_over_screen.visible = true
 

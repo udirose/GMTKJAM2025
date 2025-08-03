@@ -12,6 +12,8 @@ signal health_changed(new_health_amount)
 var current_fuel := 100.0
 var current_health := 100.0
 
+@onready var sound_manager = get_node("/root/SoundManager")
+
 var is_orbiting := false
 var orbit_center := Vector2.ZERO
 var orbit_radius := 0.0
@@ -88,12 +90,20 @@ func _process(delta):
 	
 	# Apply thrust if there's input and fuel
 	if thrust_input.length() > 0.0 and current_fuel > 0.0:
+		# Play engine sound when thrusting
+		if sound_manager:
+			sound_manager.play_space_engine()
+		
 		var thrust_force = thrust_input.normalized() * thrust_power * delta
 		thrust_velocity += thrust_force
 		thrust_velocity = thrust_velocity.limit_length(max_thrust_velocity)
 		
 		# Consume fuel based on thrust usage
 		consume_fuel(fuel_consumption_rate * thrust_input.length() * delta)
+	else:
+		# Stop engine sound when not thrusting
+		if sound_manager:
+			sound_manager.stop_engine()
 
 	# Movement update
 	if is_orbiting:
@@ -298,17 +308,28 @@ func _on_body_entered(body):
 	print("Body entered: ", body.name)
 	if body.is_in_group("planet"):
 		print("hit planet")
+		# Play explosion sound IMMEDIATELY
+		if sound_manager:
+			sound_manager.play_explosion()
+		
 		# Stop all movement
 		orbit_velocity = Vector2.ZERO
 		velocity = Vector2.ZERO
 		forward_speed = 0.0
-		clear_trail()  # Clear trail on death
-		reduce_health(100.0)  # Example damage on collision
+		clear_trail()
+		
+		# Delay the health reduction slightly to ensure sound plays
+		await get_tree().create_timer(0.1).timeout
+		reduce_health(33.3)
 
 func _on_area_entered(area):
 	print("Area entered: ", area.name)
 	if area.is_in_group("barrier") and not is_orbiting:
 		print("Hit barrier while not orbiting!")
+		# Play force field sound IMMEDIATELY
+		if sound_manager:
+			sound_manager.play_force_field()
+		
 		# Damage the ship
 		reduce_health(20.0)
 		

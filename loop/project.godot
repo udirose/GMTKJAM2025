@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="loop"
-run/main_scene="uid://dumn7vwab1sxu"
+run/main_scene="uid://dg1m34b4ag32w"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://scripts/global.gd"
+SoundManager="*res://scripts/sound_manager.gd"
 
 [display]
 
