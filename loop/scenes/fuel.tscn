@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bd6h22j3c30lx"]
+
+[ext_resource type="Texture2D" uid="uid://cohy5aareutq4" path="res://assets/bolt_gold.png" id="1_h2npa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vltxq"]
+size = Vector2(20, 34.5)
+
+[node name="fuel" type="Area2D" groups=["fuel"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_h2npa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1.25)
+shape = SubResource("RectangleShape2D_vltxq")

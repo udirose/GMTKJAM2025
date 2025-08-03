@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://kjj8qqtm5v4d"
-path="res://.godot/imported/simpleSpace_tilesheet@2.png-cf5181ac608a1d621d2afffa082db4dd.ctex"
+uid="uid://cwoqt7pd12fb"
+path="res://.godot/imported/shield_gold.png-2149eb8ca1f7a5a334b9a27c566860e7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/simpleSpace_tilesheet@2.png"
-dest_files=["res://.godot/imported/simpleSpace_tilesheet@2.png-cf5181ac608a1d621d2afffa082db4dd.ctex"]
+source_file="res://assets/shield_gold.png"
+dest_files=["res://.godot/imported/shield_gold.png-2149eb8ca1f7a5a334b9a27c566860e7.ctex"]
 
 [params]
 

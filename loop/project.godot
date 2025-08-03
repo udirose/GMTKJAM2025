@@ -28,6 +28,8 @@ window/stretch/mode="viewport"
 
 planet=""
 barrier=""
+fuel=""
+health=""
 
 [input]
 

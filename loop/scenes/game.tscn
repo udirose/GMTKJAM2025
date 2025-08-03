@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dumn7vwab1sxu"]
+[gd_scene load_steps=28 format=3 uid="uid://dumn7vwab1sxu"]
 
 [ext_resource type="Script" uid="uid://du7xbbmt3sk8a" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b178e424jw7tx" path="res://scenes/ship.tscn" id="1_uwrxv"]
@@ -21,6 +21,8 @@
 [ext_resource type="PackedScene" uid="uid://c5fcowl8sf2fa" path="res://scenes/planets/void_planet.tscn" id="19_264po"]
 [ext_resource type="Script" uid="uid://dhandgelb4jw4" path="res://scripts/barriers.gd" id="20_1kice"]
 [ext_resource type="Shader" uid="uid://dd6pho8eq5alu" path="res://shaders/game.gdshader" id="21_5newe"]
+[ext_resource type="PackedScene" uid="uid://bd6h22j3c30lx" path="res://scenes/fuel.tscn" id="22_bt5mj"]
+[ext_resource type="PackedScene" uid="uid://cl0d6jpmbr2jn" path="res://scenes/health.tscn" id="23_e1j6l"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_37s47"]
 
@@ -223,6 +225,10 @@ motion_mirroring = Vector2(0, 3000)
 script = ExtResource("10_ca42v")
 planet_scenes = Array[PackedScene]([ExtResource("2_yqjtg"), ExtResource("11_rysoc"), ExtResource("12_ssvqc"), ExtResource("13_264po"), ExtResource("14_1kice"), ExtResource("15_5newe"), ExtResource("16_37s47"), ExtResource("17_ssvqc"), ExtResource("18_264po"), ExtResource("19_264po")])
 planet_weights = Array[float]([5.0, 5.0, 5.0, 5.0, 3.0, 2.0, 1.0, 1.0, 1.0, 0.5])
+fuel_scenes = Array[PackedScene]([ExtResource("22_bt5mj")])
+health_scenes = Array[PackedScene]([ExtResource("23_e1j6l")])
+fuel_spawn_chance = 0.7
+health_spawn_chance = 0.5
 spawn_distance_ahead = 2000.0
 min_spawn_interval_y = 500.0
 max_spawn_interval_y = 1000.0

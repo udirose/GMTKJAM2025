@@ -327,6 +327,26 @@ func _on_body_entered(body):
 
 func _on_area_entered(area):
 	print("Area entered: ", area.name)
+	
+	# Handle fuel pickup
+	if area.is_in_group("fuel"):
+		print("Collected fuel!")
+		add_fuel(10.0)
+		area.queue_free()  # Delete the fuel pickup
+		if sound_manager:
+			sound_manager.play_powerup()
+		return
+	
+	# Handle health pickup
+	if area.is_in_group("health"):
+		print("Collected health!")
+		add_health(20.0)
+		area.queue_free()  # Delete the health pickup
+		if sound_manager:
+			sound_manager.play_powerup()
+		return
+	
+	# Handle barrier collision
 	if area.is_in_group("barrier") and not is_orbiting:
 		print("Hit barrier while not orbiting!")
 		# Play force field sound IMMEDIATELY

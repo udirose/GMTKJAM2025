@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cf8mdgcmq06up"
-path="res://.godot/imported/eye_psycho_dark_alt.png-d735217a9c67b9bd9e98d3d438f610af.ctex"
+uid="uid://cohy5aareutq4"
+path="res://.godot/imported/bolt_gold.png-c4216a70848be24aa992e36bf4258509.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/eye_psycho_dark_alt.png"
-dest_files=["res://.godot/imported/eye_psycho_dark_alt.png-d735217a9c67b9bd9e98d3d438f610af.ctex"]
+source_file="res://assets/bolt_gold.png"
+dest_files=["res://.godot/imported/bolt_gold.png-c4216a70848be24aa992e36bf4258509.ctex"]
 
 [params]
 

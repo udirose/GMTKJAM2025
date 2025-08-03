@@ -5,7 +5,8 @@ var sounds = {
 	"select": preload("res://assets/audio/select.ogg"),
 	"explosion": preload("res://assets/audio/explosion.ogg"),
 	"forceField": preload("res://assets/audio/forceField.ogg"),
-	"spaceEngine": preload("res://assets/audio/spaceEngine.ogg")
+	"spaceEngine": preload("res://assets/audio/spaceEngine.ogg"),
+	"powerup": preload("res://assets/audio/powerup.ogg")
 }
 
 # Music
@@ -83,6 +84,9 @@ func play_explosion():
 
 func play_force_field():
 	play_sound("forceField")
+
+func play_powerup():
+	play_sound("powerup")
 
 func play_space_engine():
 	play_engine()
