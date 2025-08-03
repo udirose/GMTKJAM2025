@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dg1m34b4ag32w"]
+[gd_scene load_steps=7 format=3 uid="uid://dg1m34b4ag32w"]
 
 [ext_resource type="Script" uid="uid://de5j5vob7wmwb" path="res://scripts/mainmenu.gd" id="1_8ln24"]
 [ext_resource type="Texture2D" uid="uid://dnqqj1bl5ijwl" path="res://assets/Space Background.png" id="1_l6cm7"]
 [ext_resource type="Theme" uid="uid://ddnandfipglca" path="res://themes/ui.tres" id="2_ekxnf"]
 [ext_resource type="Theme" uid="uid://dnwwkp2jqt4jh" path="res://themes/buttons.tres" id="3_bqqt6"]
 [ext_resource type="FontFile" uid="uid://dxhn3787x12g3" path="res://assets/Bonus/kenvector_future_thin.ttf" id="4_wu84c"]
+[ext_resource type="FontFile" uid="uid://bftb6kj7cjwos" path="res://assets/Kenney Pixel.ttf" id="6_rtw2f"]
 
 [node name="MainMenu" type="CanvasLayer"]
 
@@ -32,9 +33,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -575.0
-offset_top = 102.0
+offset_top = 27.0
 offset_right = 575.0
-offset_bottom = 303.0
+offset_bottom = 228.0
 grow_horizontal = 2
 theme = ExtResource("2_ekxnf")
 theme_override_font_sizes/normal_font_size = 128
@@ -64,9 +65,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -305.0
-offset_top = 100.0
+offset_top = 15.0
 offset_right = 305.0
-offset_bottom = 180.0
+offset_bottom = 95.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_bqqt6")
@@ -81,14 +82,30 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -214.5
-offset_top = -28.0
-offset_right = 214.5
-offset_bottom = 28.0
+offset_left = -214.0
+offset_top = -67.0
+offset_right = 215.0
+offset_bottom = -11.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_ekxnf")
 bbcode_enabled = true
 text = "highscore"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -566.0
+offset_top = 456.0
+offset_right = 577.0
+offset_bottom = 648.0
+grow_horizontal = 2
+theme = ExtResource("2_ekxnf")
+theme_override_fonts/normal_font = ExtResource("6_rtw2f")
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "Hold [color=red](space)[/color] to Orbit, Release to Launch Yourself. Thrust [color=red](WASD)[/color] to Manuever with Fuel to Avoid Crashing into PLANETS. [color=red]Dont be out of bounds when you are not orbiting!"
+fit_content = true
 
 [connection signal="pressed" from="UI/play" to="UI" method="_on_play_pressed"]

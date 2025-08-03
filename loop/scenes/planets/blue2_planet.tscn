@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://647lxpd7stq3" path="res://assets/Planets/planet07.png" id="1_fy0qr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c3u4w"]
-radius = 42.107
+radius = 40.0031
 
 [node name="blue2_planet" type="Node2D" groups=["planet"]]
 scale = Vector2(2, 2)

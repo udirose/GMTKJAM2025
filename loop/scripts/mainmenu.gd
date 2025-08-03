@@ -8,6 +8,10 @@ func _ready():
 	if play_button:
 		play_button.pressed.connect(_on_play_button_pressed)
 	
+	# Start background music when main menu loads
+	if sound_manager:
+		sound_manager.start_music()
+	
 	# Display the current highscore
 	if highscore:
 		var best_score = Global.get_highscore() if has_node("/root/Global") else 0
@@ -17,7 +21,7 @@ func _on_play_button_pressed():
 	# Play select sound
 	if sound_manager:
 		sound_manager.play_select()
-		# Start background music
-		sound_manager.start_music()
+		# Restart background music
+		sound_manager.restart_music()
 	
 	get_tree().change_scene_to_file("res://scenes/game.tscn")
