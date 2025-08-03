@@ -47,6 +47,9 @@ var glow_trail_line: Line2D  # Second layer for glow effect
 
 func _ready():
 	camera_fixed_x = camera.global_position.x
+	
+	# Add ship to group for easy reference
+	add_to_group("ship")
 
 	var area = $Area2D
 	if area:
